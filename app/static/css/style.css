@@ -1,0 +1,218 @@
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+text-decoration: none;
+list-style: none;
+}
+.input {
+background-color: lightblue;
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+box-sizing: border-box;
+}
+
+body{
+background-color: #F5F5F5;
+}
+::-webkit-input-placeholder {
+color: #CCC;
+}
+body{
+background-color: #F5F5F5;
+}
+
+/* CABEÇALHO */
+header{
+width: 100%;
+display: flex;
+justify-content: space-between;
+background-color: #65D6D1;
+padding: 3% 4%;
+color: #FFF;
+box-shadow: 0 3px 5px #CCC;
+}
+header ul{
+display: flex;
+}
+header a{
+color: #FFF;
+margin-left: 18px;
+font-size: 20px;
+}
+header h2{
+font-size: 24px;
+font-family: 'Russo One', sans-serif;
+}
+
+/* CONTEUDO PRINCIPAL */
+main{
+width: 100%;
+display: flex;
+flex-direction: column;
+padding: 3% 8%;
+}
+.box-tasks{
+margin-top: 35px;
+display: flex;
+justify-content: space-between;
+}
+main p{
+font-size: 20px;
+}
+.box-left{
+display: flex;
+flex-direction: column;
+padding: 20px;
+flex-basis: 48%;
+height: 500px;
+background-color: #FFF;
+border-radius: 10px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.box-left span{
+text-align: center;
+}
+.box-left table{
+width: 100%;
+margin-top: 15px;
+line-height: 20px;
+}
+.box-right{
+display: flex;
+flex-direction: column;
+padding: 20px;
+flex-basis: 48%;
+height: 500px;
+background-color: #FFF;
+border-radius: 10px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.box-right span{
+text-align: center;
+}
+.box-right table{
+width: 100%;
+margin-top: 15px;
+}
+.box-left a{
+color: #111;
+font-size: 14px;
+}
+.box-left button{
+padding: 5px;
+background-color: #65D6D1;
+color: #fff;
+border: none;
+border-radius: 5px;
+font-size: 10px;
+cursor: pointer;
+}
+
+/* CAIXA DE LOGIN */
+.form-rl{
+    position: absolute;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+}
+.form-rl h2{
+    font-size: 36px;
+    color: rgb(102, 214, 209);
+    font-family: 'Russo One', sans-serif;
+    margin-bottom: 25px;
+    text-shadow: 0px 3px 3px rgba(102, 214, 209, 0.5);
+}
+.form-rl form{
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+}
+.form-rl form input{
+    flex-basis: 100%;    
+    padding: 12px;
+    margin-bottom: 12px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.form-rl form button{
+    flex-basis: 75%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #65D6D1;
+    color: #FFF;
+    cursor: pointer;
+    margin-bottom: 5px;
+    box-shadow: 0px 5px 5px rgba(102, 214, 209, 0.5);
+}
+
+/* CRIAR TAREFA */
+.box-task{
+display: flex;
+position: absolute;
+flex-direction: column;
+top: 35%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 400px;
+}
+.box-task span{
+text-align: center;
+margin-bottom: 25px;
+}
+.box-task form{
+display: flex;
+flex-direction: column;
+}
+.box-task input{
+padding: 12px;
+border: none;
+margin-bottom: 12px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.box-task textarea{
+border: none;
+margin-bottom: 15px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+padding: 12px;
+}
+.box-task button{
+padding: 7px;
+border: none;
+background-color: #65D6D1;
+color: #FFF;
+cursor: pointer;
+}
+.br{
+border-radius: 8px;
+}
+
+/* DETALHES TAREFA */
+.detalhes{
+    width: 100%;
+    height: 400px;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px #CCC;
+}
+.detalhes h2{
+    margin-bottom: 12px;
+}
+.detalhes p{
+    font-size: 13px;
+}
+.detalhes span{
+    color: #CCC;
+    font-size: 10px;
+}

@@ -1,0 +1,34 @@
+{% extends 'tpl.html' %}
+
+{% block content %}
+<main>
+
+    <div class="title-text">
+        <p>Seja bem vindo, {{ current_user.name }}! Abaixo está listado algumas de suas atividades pendentes: </p>
+    </div>
+    <div class="box-tasks">
+        <div class="box-left">
+            <span>Pendencias: </span>
+            <table>
+                {% for item in sql1 %}
+                <tr>
+                    <td style="width: 90%;"><a href="http://localhost:5000/details/{{ item.id }}">{{ item.title }}</a></td>
+                    <td><button value="{{ item.id }}" onclick="updateTask(this.value);">Atualizar</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="box-right">
+            <span>Concluidos: </span>
+            <table>
+                {% for item in sql2 %}
+                <tr>
+                    <td>{{ item.title }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    
+</main>
+{% endblock %}

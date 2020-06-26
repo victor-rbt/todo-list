@@ -1,0 +1,21 @@
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="form-rl">
+        <h2>Login</h2>
+    
+        <form method="POST">
+    
+            {{ form.csrf_token }}
+            {{ form.username(placeholder="Digite seu usuário..") }}
+            {{ form.passwd(placeholder="Digite sua senha..") }}
+                
+            <button type="submit">Entrar</button>
+        </form>
+        <a href="{{ url_for('register') }}">Cadastrar-se</a>
+    </div>
+</body>
+</html>

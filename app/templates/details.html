@@ -1,0 +1,15 @@
+{% extends 'tpl.html' %}
+
+{% block content %}
+<main>
+    <div class="detalhes">
+        <div>
+            <h2>{{ task_sql.title }}</h2>
+            <p>{{ task_sql.description }}</p>
+        </div> 
+        <div>
+            <span>{{ task_sql.created_at }}</span>
+        </div>
+    </div>
+</main>
+{% endblock %}

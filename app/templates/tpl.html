@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header>
+    
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <h2>ToDo List</h2>
+        <nav>
+            <ul>
+                <li><a href="javascript:addTask();">Criar Tarefa</a></li>
+                <li><a href="{{ url_for('logout') }}">Sair</a></li>
+            </ul>
+        </nav>
+    
+    </header>
+
+    {% block content %}
+
+    {% endblock %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</script>
+</body>
+</html>
