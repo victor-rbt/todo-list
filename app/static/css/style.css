@@ -22,6 +22,12 @@ color: #CCC;
 body{
 background-color: #F5F5F5;
 }
+.err{
+    color: red;
+}
+.inf{
+    color: green;
+}
 
 /* CABEÇALHO */
 header{

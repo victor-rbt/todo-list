@@ -15,7 +15,12 @@
                 
             <button type="submit">Entrar</button>
         </form>
-        <a href="{{ url_for('register') }}">Cadastrar-se</a>
+        <div>
+            <a href="{{ url_for('register') }}">Cadastrar-se</a>
+        </div>
+        {% if err %}
+            <p class="err">{{ err }}</p>
+        {% endif %}
     </div>
 </body>
 </html>

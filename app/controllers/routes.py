@@ -1,11 +1,12 @@
 from app import app, db, login
-from flask import render_template, redirect, url_for, request, jsonify, make_response
+from flask import render_template, redirect, url_for, request, jsonify, make_response, flash
 from flask_login import login_user, logout_user, login_required, current_user
 
 from app.models.tables import Tasks, Users
 from app.models.forms import LoginForm, RegisterForm, AddTaskForm
 
 import json
+import bcrypt
 
 @login.user_loader
 def load_user(id):
@@ -15,29 +16,22 @@ def load_user(id):
 def login():
     title = 'Autenticação'
 
+    err = None
     form = LoginForm()
     if form.validate_on_submit():
-        users_sql = Users.query.filter_by(username=form.username.data).first()
-        if users_sql and users_sql.passwd == form.passwd.data:
-            login_user(users_sql)
+        user_result = Users.query.filter_by(username=form.username.data).first()
+        if user_result and bcrypt.checkpw(form.passwd.data.encode('utf-8'), user_result.passwd):
+            login_user(user_result)
             return redirect(url_for('index'))
         else:
-            return """
-                    <html>
-                    <script>
-                        alert("Usuário ou senha, incorretos!");
-                        window.location.href = "http://localhost:5000/";
-                    </script>
-                    </html>"""
+            err = "Credenciais inválidas!"
+            return redirect(url_for('login'))
 
-    return render_template('login.html',
-                            title=title,
-                            form=form)
+    return render_template('login.html', title=title, form=form, err=err)
 
 @app.route("/logout")
 @login_required
 def logout():
-
     logout_user()
 
     return """
@@ -52,20 +46,17 @@ def logout():
 def register():
     title = 'Cadastro'
 
+    err = None
     form = RegisterForm()
     if form.validate_on_submit():
-        users_sql = Users.query.filter_by(username=form.username.data).all()
-        if users_sql:
-            return """
-                    <html>
-                    <script>
-                        alert("Usuário já existente na base de dados!");
-                        window.location.href = "http://localhost:5000/register";
-                    </script>
-                    </html>"""
+        user_result = Users.query.filter_by(username=form.username.data).all()
+        if user_result:
+            err = "Usuário já existe na base de dados!"
+            return redirect(url_for('register'))
         else:
-            users_sql = Users(form.name.data, form.surname.data, form.username.data, form.passwd.data)
-            db.session.add(users_sql)
+            passwd_hashed = bcrypt.hashpw(form.passwd.data.encode('utf-8'), bcrypt.gensalt())
+            ins_user = Users(form.name.data, form.surname.data, form.username.data, passwd_hashed)
+            db.session.add(ins_user)
             db.session.commit()
             return """
                     <html>
@@ -75,9 +66,7 @@ def register():
                     </script>
                     </html>"""
 
-    return render_template('register.html',
-                            title=title,
-                            form=form)
+    return render_template('register.html', title=title, form=form, err=err)
     
 @app.route("/index", methods=["GET"])
 @login_required
@@ -121,12 +110,14 @@ def add_task():
 def details(val_task):
     title = 'Detalhes Tarefa'
 
-    if val_task:
-        task_sql = Tasks.query.filter_by(id=val_task).first()
+    validate_user = Tasks.query.filter_by(id=val_task).first()
+    if validate_user.users_id == current_user.id:
+        task_result = Tasks.query.filter_by(id=val_task).first()
+    else:
+        flash("Você não tem permissão para visualizar essa tarefa!")
+        return redirect(url_for(index))
 
-    return render_template('details.html',
-                            title=title,
-                            task_sql=task_sql)
+    return render_template('details.html', title=title, task_result=task_result)
 
 @app.route("/update_task", methods=["POST"])
 def update_task():
