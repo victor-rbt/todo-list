@@ -9,18 +9,19 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <header>
-    
-        <a href="{{ url_for('index') }}">Inicio</a>
-        <h2>ToDo List</h2>
+    <div class="sidebar">
+        <p>ToDo List</p>
         <nav>
             <ul>
-                <li><a href="javascript:addTask();">Criar Tarefa</a></li>
+                <li><a href="javascript:addTask();">Criar tarefa</a></li>
+                <li><a href="#">Tarefas pendentes</a></li>
+                <li><a href="#">Tarefas concluídas</a></li>
+                <li><a href="#">Tarefas excluídas</a></li>
                 <li><a href="{{ url_for('logout') }}">Sair</a></li>
             </ul>
         </nav>
+    </div>
     
-    </header>
 
     {% block content %}
 
