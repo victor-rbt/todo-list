@@ -128,18 +128,13 @@ def details(val_task):
                             title=title,
                             task_sql=task_sql)
 
-@app.route("/update_task/<int:concluir>")
-@app.route("/update_task/<int:deletar>")
-def update_task(concluir=None, deletar=None):
+@app.route("/update_task", methods=["POST"])
+def update_task():
 
-    if concluir:
-        sql = Tasks.query.filter_by(id=concluir).first()
-        sql.status = '0'
-        db.session.commit()
-    
-    if deletar:
-        sql = Tasks.query.filter_by(id=deletar).first()
-        sql.status = '1'
-        db.session.commit()
+    parametro = request.get_json()
+    s = parametro['parametro']
+    sql = Tasks.query.filter_by(id=s).first()
+    sql.status = '1'
+    db.session.commit()
 
     return None
