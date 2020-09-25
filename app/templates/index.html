@@ -2,32 +2,37 @@
 
 {% block content %}
 <main>
-
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="{{ category }}" style="margin-bottom: 20px;">
+                    <p>{{ msg }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <div class="title-text">
-        <p>Seja bem vindo, {{ current_user.name }}! Abaixo está listado algumas de suas atividades pendentes: </p>
+        <p>Seja bem vindo, {{ current_user.name }}! Abaixo está listado algumas de suas atividades: </p>
     </div>
     <div class="box-tasks">
-        <div class="box-left">
-            <span>Pendencias: </span>
-            <table>
-                {% for item in sql1 %}
-                <tr>
-                    <td style="width: 90%;"><a href="http://localhost:5000/details/{{ item.id }}">{{ item.title }}</a></td>
-                    <td><button value="{{ item.id }}" onclick="updateTask(this.value);">Atualizar</button></td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <div class="box-right">
-            <span>Concluidos: </span>
-            <table>
-                {% for item in sql2 %}
-                <tr>
-                    <td>{{ item.title }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Pendentes</a></li>
+                <li><a href="{{ url_for('index', status='concluidos') }}">Concluídos</a></li>
+                <li><a href="{{ url_for('index', status='deletados') }}">Excluídos</a></li>
+            </ul>
+        </nav>
+        {% for item in sql %}
+            <div class="tasks">
+                <a href="{{ url_for('details', val_task=item.id) }}">{{ item.title }}</a>
+                {% if item.status == '0' %}
+                    <ul>
+                        <li><a href="{{ url_for('update_task', id_task=item.id) }}" class="concluir">Concluir</a></li>
+                        <li><a href="{{ url_for('delete_task', id_task=item.id) }}" class="deletar">Deletar</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
     </div>
     
 </main>

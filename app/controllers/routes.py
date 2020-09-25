@@ -55,19 +55,21 @@ def register():
             return redirect(url_for('login'))
 
     return render_template('register.html', title=title, form=form)
-    
+
+@app.route("/index/<string:status>")
 @app.route("/index")
 @login_required
-def index():
+def index(status=None):
     title = 'Pagina Inicial'
-    
-    sql1 = Tasks.query.filter_by(users_id=current_user.id, status='0').all()
-    sql2 = Tasks.query.filter_by(users_id=current_user.id, status='1').all()
 
-    return render_template('index.html',
-                            title=title,
-                            sql1=sql1,
-                            sql2=sql2)
+    if status == 'concluidos':
+        sql = Tasks.query.filter_by(users_id=current_user.id, status='1').all()
+    elif status == 'deletados':
+        sql = Tasks.query.filter_by(users_id=current_user.id, status='2').all()
+    else:
+        sql = Tasks.query.filter_by(users_id=current_user.id, status='0').all()
+
+    return render_template('index.html', title=title, sql=sql)
 
 @app.route("/add_task", methods=["GET", "POST"])
 @login_required
@@ -81,17 +83,10 @@ def add_task():
         add_task_sql = Tasks(user, form.title.data, form.description.data, status_padrao)
         db.session.add(add_task_sql)
         db.session.commit()
-        return """
-                <html>
-                <script>
-                    alert("Tarefa criada com sucesso!");
-                    window.close();
-                </script>
-                </html>"""
+        flash("Tarefa adicionada!", "inf")
+        return redirect(url_for('index'))
 
-    return render_template('add_task.html',
-                            title=title,
-                            form=form)
+    return render_template('add_task.html', title=title, form=form)
 
 @app.route("/details/<int:val_task>")
 @login_required
@@ -112,9 +107,7 @@ def update_task(id_task):
 
     validate_user = Tasks.query.filter_by(id=id_task).first()
     if validate_user.users_id == current_user.id:
-        parametro = request.get_json()
-        s = parametro['parametro']
-        sql = Tasks.query.filter_by(id=s).first()
+        sql = Tasks.query.filter_by(id=id_task).first()
         sql.status = '1'
         db.session.commit()
     else: 
@@ -122,4 +115,19 @@ def update_task(id_task):
         return redirect(url_for('index'))
 
     flash("Tarefa atualizada!", "inf")
+    return redirect(url_for('index'))
+
+@app.route("/delete_task/<int:id_task>")
+def delete_task(id_task):
+
+    validate_user = Tasks.query.filter_by(id=id_task).first()
+    if validate_user.users_id == current_user.id:
+        sql = Tasks.query.filter_by(id=id_task).first()
+        sql.status = '2'
+        db.session.commit()
+    else: 
+        flash("Você não tem permissão para alterar essa tarefa!", "err")
+        return redirect(url_for('index'))
+
+    flash("Tarefa deletada!", "inf")
     return redirect(url_for('index'))

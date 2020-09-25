@@ -1,23 +1,20 @@
-<html>
-<head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>{{ title }}</title>
-</head>
-<body>
+{% extends 'tpl.html' %}
+
+{% block content %}
+<main>
     <div class="box-task">
 
-        <span>Crie uma nova tarefa!</span>
+    <span>Crie uma nova tarefa!</span>
 
-        <form method="POST">
-            
-            {{ form.csrf_token }}
-            {{ form.title(placeholder="Digite um título...") }}
-            {{ form.description(placeholder="Digite uma descrição...") }}
+    <form method="POST">
+        
+        {{ form.csrf_token }}
+        {{ form.title(placeholder="Digite um título...") }}
+        {{ form.description(placeholder="Digite uma descrição...") }}
 
-            <button type="submit" value="Enviar">Enviar</button>
+        <button type="submit" value="Enviar">Enviar</button>
 
-        </form>
-
+    </form>
     </div>
-</body>
-</html>
+</main>
+{% endblock %}

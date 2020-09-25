@@ -18,6 +18,16 @@
             <button type="submit">Enviar</button>
 
         </form>
+
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, msg in messages %}
+                    <div class="{{ category }}" style="margin-bottom: 20px;">
+                        <p>{{ msg }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
 </body>
 </html>

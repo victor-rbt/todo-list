@@ -20,20 +20,41 @@ body{
     color: #CCC;
 }
 .err{
-    padding: 1% 5%;
+    padding: 0.5% 5%;
     text-align: center;
     border: 1px solid darkred;
     background-color: red;
     color: #FFF;
     border-radius: 3px;
+    font-size: 0.8rem;
 }
 .inf{
-    padding: 1% 5%;
+    padding: 0.5% 5%;
+    font-size: 0.8rem;
     text-align: center;
     background-color: lawngreen;
     border: 1px solid green;
     color: #FFF;
     border-radius: 3px;
+}
+.concluir{
+    padding: 1px 8px;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 3px;
+    color: #FFF;
+    background-color: green;
+    color: #FFF!important;
+    cursor: pointer;
+}
+.deletar{
+    padding: 1px 8px;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 3px;
+    color: #FFF!important;
+    background-color: red;
+    cursor: pointer;
 }
 
 /* CABEÇALHO */
@@ -41,8 +62,9 @@ header{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: #65D6D1;
-    padding: 3% 4%;
+    padding: 2% 4%;
     color: #FFF;
     box-shadow: 0 3px 5px #CCC;
 }
@@ -64,63 +86,51 @@ main{
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 3% 8%;
+    padding: 3% 5%;
 }
 .box-tasks{
+    width: 100%;
+    height: 430px;
+    padding: 1.5% 2%;
+    overflow-y: scroll;
+    background-color: #FFF;
+    box-shadow: 0 3px 6pc rgba(0, 0, 0, 0.3);
     margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+}
+.box-tasks nav{
+    width: 35%;
+    margin-bottom: 15px;
+}
+.box-tasks nav ul{
     display: flex;
     justify-content: space-between;
 }
-main p{
-    font-size: 20px;
+.box-tasks nav a{
+    color: #ccc;
 }
-.box-left{
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    flex-basis: 48%;
-    height: 500px;
-    background-color: #FFF;
-    border-radius: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-.box-left span{
-    text-align: center;
-}
-.box-left table{
+.tasks{
     width: 100%;
-    margin-top: 15px;
-    line-height: 20px;
-}
-.box-right{
+    margin-bottom: 12px;
     display: flex;
-    flex-direction: column;
-    padding: 20px;
-    flex-basis: 48%;
-    height: 500px;
-    background-color: #FFF;
-    border-radius: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    justify-content: space-between;
 }
-.box-right span{
-    text-align: center;
-}
-.box-right table{
-    width: 100%;
-    margin-top: 15px;
-}
-.box-left a{
+.tasks a{
     color: #111;
-    font-size: 14px;
 }
-.box-left button{
-    padding: 5px;
-    background-color: #65D6D1;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 10px;
-    cursor: pointer;
+.tasks ul{
+    display: flex;
+}
+.tasks li a{
+    margin-left: 12px;
+}
+main p{
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 /* CAIXA DE LOGIN */
@@ -168,6 +178,7 @@ main p{
 
 /* CRIAR TAREFA */
 .box-task{
+    width: 100%;
     display: flex;
     position: absolute;
     flex-direction: column;
