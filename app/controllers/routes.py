@@ -1,5 +1,5 @@
 from app import app, db, login
-from flask import render_template, redirect, url_for, request, jsonify, make_response, flash
+from flask import render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 
 from app.models.tables import Tasks, Users
@@ -16,7 +16,6 @@ def load_user(id):
 def login():
     title = 'Autenticação'
 
-    err = None
     form = LoginForm()
     if form.validate_on_submit():
         user_result = Users.query.filter_by(username=form.username.data).first()
@@ -24,51 +23,40 @@ def login():
             login_user(user_result)
             return redirect(url_for('index'))
         else:
-            err = "Credenciais inválidas!"
+            flash("Credenciais inválidas!", "err")
             return redirect(url_for('login'))
 
-    return render_template('login.html', title=title, form=form, err=err)
+    return render_template('login.html', title=title, form=form)
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
 
-    return """
-            <html>
-            <script>
-                alert("Você saiu!");
-                window.location.href = "http://localhost:5000/";
-            </script>
-            </html>"""
+    flash("Você saiu.", "err")
+    return redirect(url_for('login'))
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     title = 'Cadastro'
 
-    err = None
     form = RegisterForm()
     if form.validate_on_submit():
         user_result = Users.query.filter_by(username=form.username.data).all()
         if user_result:
-            err = "Usuário já existe na base de dados!"
+            flash("Usuário já existe na base de dados!" , "err")
             return redirect(url_for('register'))
         else:
             passwd_hashed = bcrypt.hashpw(form.passwd.data.encode('utf-8'), bcrypt.gensalt())
             ins_user = Users(form.name.data, form.surname.data, form.username.data, passwd_hashed)
             db.session.add(ins_user)
             db.session.commit()
-            return """
-                    <html>
-                    <script>
-                        alert("Usuário criado com sucesso!");
-                        window.location.href = "http://localhost:5000/login";
-                    </script>
-                    </html>"""
+            flash("Usuário criados!", "inf")
+            return redirect(url_for('login'))
 
-    return render_template('register.html', title=title, form=form, err=err)
+    return render_template('register.html', title=title, form=form)
     
-@app.route("/index", methods=["GET"])
+@app.route("/index")
 @login_required
 def index():
     title = 'Pagina Inicial'
@@ -105,7 +93,7 @@ def add_task():
                             title=title,
                             form=form)
 
-@app.route("/details/<val_task>", methods=["GET"])
+@app.route("/details/<int:val_task>")
 @login_required
 def details(val_task):
     title = 'Detalhes Tarefa'
@@ -114,18 +102,24 @@ def details(val_task):
     if validate_user.users_id == current_user.id:
         task_result = Tasks.query.filter_by(id=val_task).first()
     else:
-        flash("Você não tem permissão para visualizar essa tarefa!")
+        flash("Você não tem permissão para visualizar essa tarefa!", "err")
         return redirect(url_for(index))
 
     return render_template('details.html', title=title, task_result=task_result)
 
-@app.route("/update_task", methods=["POST"])
-def update_task():
+@app.route("/update_task/<int:id_task>")
+def update_task(id_task):
 
-    parametro = request.get_json()
-    s = parametro['parametro']
-    sql = Tasks.query.filter_by(id=s).first()
-    sql.status = '1'
-    db.session.commit()
+    validate_user = Tasks.query.filter_by(id=id_task).first()
+    if validate_user.users_id == current_user.id:
+        parametro = request.get_json()
+        s = parametro['parametro']
+        sql = Tasks.query.filter_by(id=s).first()
+        sql.status = '1'
+        db.session.commit()
+    else: 
+        flash("Você não tem permissão para alterar essa tarefa!", "err")
+        return redirect(url_for('index'))
 
-    return None
+    flash("Tarefa atualizada!", "inf")
+    return redirect(url_for('index'))

@@ -15,12 +15,18 @@
                 
             <button type="submit">Entrar</button>
         </form>
-        <div>
-            <a href="{{ url_for('register') }}">Cadastrar-se</a>
+        <div style="display: flex!important;justify-content: flex-start!important;margin-bottom: 12px;">
+            <a href="{{ url_for('register') }}" style="text-align: left!important;">Cadastrar-se</a>
         </div>
-        {% if err %}
-            <p class="err">{{ err }}</p>
-        {% endif %}
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, msg in messages %}
+                    <div class="{{ category }}">
+                        <p>{{ msg }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
 </body>
 </html>

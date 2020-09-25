@@ -1,125 +1,132 @@
 *{
-padding: 0;
-margin: 0;
-box-sizing: border-box;
-text-decoration: none;
-list-style: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
 }
 .input {
-background-color: lightblue;
-width: 100%;
-padding: 12px 20px;
-margin: 8px 0;
-box-sizing: border-box;
+    background-color: lightblue;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }
 
 body{
-background-color: #F5F5F5;
+    background-color: #F5F5F5;
 }
 ::-webkit-input-placeholder {
-color: #CCC;
-}
-body{
-background-color: #F5F5F5;
+    color: #CCC;
 }
 .err{
-    color: red;
+    padding: 1% 5%;
+    text-align: center;
+    border: 1px solid darkred;
+    background-color: red;
+    color: #FFF;
+    border-radius: 3px;
 }
 .inf{
-    color: green;
+    padding: 1% 5%;
+    text-align: center;
+    background-color: lawngreen;
+    border: 1px solid green;
+    color: #FFF;
+    border-radius: 3px;
 }
 
 /* CABEÇALHO */
 header{
-width: 100%;
-display: flex;
-justify-content: space-between;
-background-color: #65D6D1;
-padding: 3% 4%;
-color: #FFF;
-box-shadow: 0 3px 5px #CCC;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #65D6D1;
+    padding: 3% 4%;
+    color: #FFF;
+    box-shadow: 0 3px 5px #CCC;
 }
 header ul{
-display: flex;
+    display: flex;
 }
 header a{
-color: #FFF;
-margin-left: 18px;
-font-size: 20px;
+    color: #FFF;
+    margin-left: 18px;
+    font-size: 20px;
 }
 header h2{
-font-size: 24px;
-font-family: 'Russo One', sans-serif;
+    font-size: 24px;
+    font-family: 'Russo One', sans-serif;
 }
 
 /* CONTEUDO PRINCIPAL */
 main{
-width: 100%;
-display: flex;
-flex-direction: column;
-padding: 3% 8%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 3% 8%;
 }
 .box-tasks{
-margin-top: 35px;
-display: flex;
-justify-content: space-between;
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
 }
 main p{
-font-size: 20px;
+    font-size: 20px;
 }
 .box-left{
-display: flex;
-flex-direction: column;
-padding: 20px;
-flex-basis: 48%;
-height: 500px;
-background-color: #FFF;
-border-radius: 10px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex-basis: 48%;
+    height: 500px;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .box-left span{
-text-align: center;
+    text-align: center;
 }
 .box-left table{
-width: 100%;
-margin-top: 15px;
-line-height: 20px;
+    width: 100%;
+    margin-top: 15px;
+    line-height: 20px;
 }
 .box-right{
-display: flex;
-flex-direction: column;
-padding: 20px;
-flex-basis: 48%;
-height: 500px;
-background-color: #FFF;
-border-radius: 10px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex-basis: 48%;
+    height: 500px;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .box-right span{
-text-align: center;
+    text-align: center;
 }
 .box-right table{
-width: 100%;
-margin-top: 15px;
+    width: 100%;
+    margin-top: 15px;
 }
 .box-left a{
-color: #111;
-font-size: 14px;
+    color: #111;
+    font-size: 14px;
 }
 .box-left button{
-padding: 5px;
-background-color: #65D6D1;
-color: #fff;
-border: none;
-border-radius: 5px;
-font-size: 10px;
-cursor: pointer;
+    padding: 5px;
+    background-color: #65D6D1;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 10px;
+    cursor: pointer;
 }
 
 /* CAIXA DE LOGIN */
 .form-rl{
     position: absolute;
-    width: 400px;
+    width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,43 +168,43 @@ cursor: pointer;
 
 /* CRIAR TAREFA */
 .box-task{
-display: flex;
-position: absolute;
-flex-direction: column;
-top: 35%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 400px;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
 }
 .box-task span{
-text-align: center;
-margin-bottom: 25px;
+    text-align: center;
+    margin-bottom: 25px;
 }
 .box-task form{
-display: flex;
-flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 .box-task input{
-padding: 12px;
-border: none;
-margin-bottom: 12px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 12px;
+    border: none;
+    margin-bottom: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .box-task textarea{
-border: none;
-margin-bottom: 15px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-padding: 12px;
+    border: none;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 12px;
 }
 .box-task button{
-padding: 7px;
-border: none;
-background-color: #65D6D1;
-color: #FFF;
-cursor: pointer;
+    padding: 7px;
+    border: none;
+    background-color: #65D6D1;
+    color: #FFF;
+    cursor: pointer;
 }
 .br{
-border-radius: 8px;
+    border-radius: 8px;
 }
 
 /* DETALHES TAREFA */
