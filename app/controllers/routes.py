@@ -71,7 +71,7 @@ def register():
                     <html>
                     <script>
                         alert("Usuário criado com sucesso!");
-                        window.location.href = "http://localhost:5000/";
+                        window.location.href = "http://localhost:5000/login";
                     </script>
                     </html>"""
 
