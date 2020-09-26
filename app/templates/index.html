@@ -25,7 +25,7 @@
         {% for item in sql %}
             <div class="tasks">
                 <a href="{{ url_for('details', val_task=item.id) }}">{{ item.title }}</a>
-                {% if item.status == '0' %}
+                {% if item.status_id == 0 %}
                     <ul>
                         <li><a href="{{ url_for('update_task', id_task=item.id) }}" class="concluir">Concluir</a></li>
                         <li><a href="{{ url_for('delete_task', id_task=item.id) }}" class="deletar">Deletar</a></li>

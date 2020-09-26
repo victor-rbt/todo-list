@@ -63,11 +63,11 @@ def index(status=None):
     title = 'Pagina Inicial'
 
     if status == 'concluidos':
-        sql = Tasks.query.filter_by(users_id=current_user.id, status='1').all()
+        sql = Tasks.query.filter_by(users_id=current_user.id, status_id=1).all()
     elif status == 'deletados':
-        sql = Tasks.query.filter_by(users_id=current_user.id, status='2').all()
+        sql = Tasks.query.filter_by(users_id=current_user.id, status_id=2).all()
     else:
-        sql = Tasks.query.filter_by(users_id=current_user.id, status='0').all()
+        sql = Tasks.query.filter_by(users_id=current_user.id, status_id=0).all()
 
     return render_template('index.html', title=title, sql=sql)
 
@@ -78,9 +78,7 @@ def add_task():
 
     form = AddTaskForm()
     if form.validate_on_submit():
-        status_padrao = '0'
-        user = current_user.id
-        add_task_sql = Tasks(user, form.title.data, form.description.data, status_padrao)
+        add_task_sql = Tasks(current_user.id, form.title.data, form.description.data, 0)
         db.session.add(add_task_sql)
         db.session.commit()
         flash("Tarefa adicionada!", "inf")
@@ -108,7 +106,7 @@ def update_task(id_task):
     validate_user = Tasks.query.filter_by(id=id_task).first()
     if validate_user.users_id == current_user.id:
         sql = Tasks.query.filter_by(id=id_task).first()
-        sql.status = '1'
+        sql.status_id = 1
         db.session.commit()
     else: 
         flash("Você não tem permissão para alterar essa tarefa!", "err")
@@ -123,7 +121,7 @@ def delete_task(id_task):
     validate_user = Tasks.query.filter_by(id=id_task).first()
     if validate_user.users_id == current_user.id:
         sql = Tasks.query.filter_by(id=id_task).first()
-        sql.status = '2'
+        sql.status_id = 2
         db.session.commit()
     else: 
         flash("Você não tem permissão para alterar essa tarefa!", "err")
